@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import optparse
 import sys
 
 from src.modules.crypto import Crypto
