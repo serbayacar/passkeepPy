@@ -1,0 +1,5 @@
+.vscode
+venv/
+src/modules/__pycache__
+.DS_Store
+config.ini
