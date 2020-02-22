@@ -46,6 +46,14 @@ class PassKeep(object):
         # now that we're inside a subcommand, ignore the first
         # TWO argvs, ie the command (git) and the subcommand (commit)
         args = parser.parse_args(sys.argv[2:])
+        
+        credential = { "record" : {
+                            "alias": args.alias,
+                            "website": args.website,
+                            "username": args.username,
+                            "password": args.password
+                        }
+                    }
         print('Adding, alias={}, website={}, username={}, pass={}, g={}'.format(args.alias, args.website, args.username, args.password, args.g) )
 
     def remove(self):
