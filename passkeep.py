@@ -63,10 +63,20 @@ class PassKeep(object):
         parser = argparse.ArgumentParser(
             description='Show your credentials has been saved')
         # NOT prefixing the argument with -- means it's not optional
-        parser.add_argument('--alias')
-        parser.add_argument('--website', action='store_true')
+        parser.add_argument('--alias', action='store')
+        parser.add_argument('--website', action='store')
         args = parser.parse_args(sys.argv[2:])
-        print('Showing your credentials, alias=%s' % args.alias)
+
+        aliasRegexElimeter = '[/d]'
+        websiteRegexElimeter = '[/d]'
+        if args.alias is not None:
+            aliasRegexElimeter = args.alias
+        if args.website is not None:
+            websiteRegexElimeter = args.website
+
+        regexString = 'r\'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[/d]), Password: (?P<password>[/d])\''.format(aliasRegexElimeter, websiteRegexElimeter)
+        # print('Showing your credentials, alias=%s' % args.alias)
+        print(regexString)
 
     def generate(self):
         parser = argparse.ArgumentParser(
