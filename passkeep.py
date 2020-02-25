@@ -43,18 +43,12 @@ class PassKeep(object):
         group = parser.add_mutually_exclusive_group(required=True)
         group.add_argument('--password', action='store', help='Set password of credentials')
         group.add_argument('-g', action='store_true', default= False, help= 'Generate auto password')
-        # now that we're inside a subcommand, ignore the first
-        # TWO argvs, ie the command (git) and the subcommand (commit)
         args = parser.parse_args(sys.argv[2:])
-        
-        credential = { "record" : {
-                            "alias": args.alias,
-                            "website": args.website,
-                            "username": args.username,
-                            "password": args.password
-                        }
-                    }
-        print('Adding, alias={}, website={}, username={}, pass={}, g={}'.format(args.alias, args.website, args.username, args.password, args.g) )
+    
+        credentString = 'Alias: {}, Website: {}, Username: {}, Password: {}'.format( args.alias, args.website, args.username, args.password)
+        filePointer = File('./credentials.txt')
+        filePointer.write(credentString)
+        pass
 
     def remove(self):
         parser = argparse.ArgumentParser(

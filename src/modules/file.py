@@ -5,9 +5,9 @@ class File:
     def __init__(self, path):
         self.path = path
 
-    def write(self, data, permission = 'wr'):
+    def write(self, data, permission = 'a'):
         file = open(self.path, permission)
-        file.write(data)
+        file.write(data + '\n')
         file.close()
         return
 
