@@ -55,9 +55,25 @@ class PassKeep(object):
         parser = argparse.ArgumentParser(
             description='Delete your credentials has been saved')
         # NOT prefixing the argument with -- means it's not optional
-        parser.add_argument('--alias')
-        parser.add_argument('--website', action='store_true')
+        parser.add_argument('--alias', action='store')
+        parser.add_argument('--website', action='store')
         args = parser.parse_args(sys.argv[2:])
+
+        aliasRegexElimeter = '[\w:\d.\.\/]+'
+        websiteRegexElimeter = '[\w:.\/]+'
+        if args.alias is not None:
+            aliasRegexElimeter = args.alias
+        if args.website is not None:
+            websiteRegexElimeter = args.website
+
+        regexString = r'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)'.format(aliasRegexElimeter, websiteRegexElimeter)
+
+        filePointer = File('./credentials.txt')
+        data = filePointer.read()
+
+        credent = re.sub(regexString, '', data)
+        filePointer.reset(credent)
+        print(credent)
         print('Removing, alias=%s' % args.alias)
 
     def show(self):

@@ -11,6 +11,13 @@ class File:
         file.close()
         return
 
+    def reset(self, data, permission = 'w'):
+        file = open(self.path, permission)
+        file.seek(0)
+        file.write(data)
+        file.close()
+        return
+
     def read(self, permission = 'r'):
         file = open(self.path, permission)
         file.seek(0)
