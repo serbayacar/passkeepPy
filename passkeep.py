@@ -75,8 +75,23 @@ class PassKeep(object):
         if args.website is not None:
             websiteRegexElimeter = args.website
 
-        regexString = 'r\'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)'.format(aliasRegexElimeter, websiteRegexElimeter
-        print(regexString)
+        regexString = r'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)'.format(aliasRegexElimeter, websiteRegexElimeter)
+
+        filePointer = File('./credentials.txt')
+        data = filePointer.read()
+        # credent = re.match(r'Alias: (?P<alias>linkedin), Website: (?P<website>[\w:.\/]+), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)', data)
+        credent = re.match(regexString, data)
+        if credent is not None:
+            print(''' 
+*********************************
+Alias: {}
+Website: {}
+Username: {}
+Password: {}
+*********************************
+                  '''.format( credent.group('alias'), credent.group('website'), credent.group('username'), credent.group('password') ))
+        else:
+            print('Searched credential is not found')
 
     def generate(self):
         parser = argparse.ArgumentParser(
