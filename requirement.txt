@@ -3,7 +3,9 @@ cffi==1.14.0
 chardet==3.0.4
 Click==7.0
 cryptography==2.8
+dicttoxml==1.7.4
 idna==2.8
+json2xml==3.3.2
 pycparser==2.19
 requests==2.22.0
 six==1.11.0
