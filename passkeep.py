@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+import re
 
 from src.modules.crypto import Crypto
 from src.modules.xml import XML
@@ -67,15 +68,14 @@ class PassKeep(object):
         parser.add_argument('--website', action='store')
         args = parser.parse_args(sys.argv[2:])
 
-        aliasRegexElimeter = '[/d]'
-        websiteRegexElimeter = '[/d]'
+        aliasRegexElimeter = '[\w:\d.\.\/]+'
+        websiteRegexElimeter = '[\w:.\/]+'
         if args.alias is not None:
             aliasRegexElimeter = args.alias
         if args.website is not None:
             websiteRegexElimeter = args.website
 
-        regexString = 'r\'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[/d]), Password: (?P<password>[/d])\''.format(aliasRegexElimeter, websiteRegexElimeter)
-        # print('Showing your credentials, alias=%s' % args.alias)
+        regexString = 'r\'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)'.format(aliasRegexElimeter, websiteRegexElimeter
         print(regexString)
 
     def generate(self):
