@@ -34,4 +34,5 @@ Every project should utilize logging, but for simple use cases, this requires a 
 
 ## Documentation
 
-Project Organization ( Files organization )  [documentation](https://github.com/serbayacar/passkeepPy/blob/master/ORGANIZATION.md).  License file ::  [GPLv3](https://github.com/serbayacar/passkeepPy/blob/master/LICENSE.gpl).
+Project Organization ( Files organization )  [documentation](https://github.com/serbayacar/passkeepPy/blob/master/ORGANIZATION.md).  
+License file ::  [GPLv3](https://github.com/serbayacar/passkeepPy/blob/master/LICENSE.gpl).
