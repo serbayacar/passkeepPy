@@ -1,0 +1,38 @@
+# passKeepPy
+
+A CLI application for keeping your credentials on local!
+
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+## Installation
+
+To activate individual virtual environment:
+
+```text
+$ pip install virtualenv 
+```
+
+To create and start in project root:
+
+```text
+$ virtualenv venv
+$ source venv/bin/activate
+```
+
+Install dependencies in virtual environment:
+
+```text
+$ pip install -r requirements.txt
+```
+
+<!-- ## Usage
+
+Every project should utilize logging, but for simple use cases, this requires a bit too much boilerplate. Instead of including all of this in your modules:
+ -->
+
+
+## Documentation
+
+Project Organization ( Files organization )  [documentation](https://github.com/serbayacar/passkeepPy/ORGANIZATION.md).
+License file ::  [GPLv3](https://github.com/serbayacar/passkeepPy/LICENSE.gpl).
