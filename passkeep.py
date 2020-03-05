@@ -4,6 +4,8 @@ import argparse
 import sys
 import re
 
+from src.configs.helpstrings import HelpString
+
 from src.modules.crypto import Crypto
 from src.modules.xml import XML
 from src.modules.file import File
@@ -13,16 +15,8 @@ class PassKeep(object):
 
     def __init__(self):
         parser = argparse.ArgumentParser(
-            description='Pretends to be git',
-            usage='''passkeep <command> [<args>]
-
-                    The most commonly used git commands are:
-                    add       Add new credentials to saved as encrypted
-                    remove    Delete your credentials has been saved
-                    show      Show your credentials has been saved
-                    generate  Generate custom username/password
-                    config    Set program configuration
-                    ''')
+            description= HelpString.getMainString('main_description'),
+            usage= HelpString.getMainString('help_usage'))
         parser.add_argument('command', help='Subcommand to run')
         # parse_args defaults to [1:] for args, but you need to
         # exclude the rest of the args too, or validation will fail
@@ -36,14 +30,14 @@ class PassKeep(object):
 
     def add(self):
         parser = argparse.ArgumentParser(
-            description='Add new credentials to saved as encrypted')
+            description= HelpString.getMainString('add_description'))
         # prefixing the argument with -- means it's optional
-        parser.add_argument('--alias', required=True, action='store', help='Remembering given shortname')
-        parser.add_argument('--website', required=True, action='store', help='Set Website URL')
-        parser.add_argument('--username', required=True, action='store', help='Set username of credentials')
+        parser.add_argument('--alias', required=True, action='store', help= HelpString.getAddString('arg_alias'))
+        parser.add_argument('--website', required=True, action='store', help= HelpString.getAddString('arg_website'))
+        parser.add_argument('--username', required=True, action='store', help=HelpString.getAddString('arg_username'))
         group = parser.add_mutually_exclusive_group(required=True)
-        group.add_argument('--password', action='store', help='Set password of credentials')
-        group.add_argument('-g', action='store_true', default= False, help= 'Generate auto password')
+        group.add_argument('--password', action='store', help= HelpString.getAddString('arg_password'))
+        group.add_argument('-g', action='store_true', default= False, help= HelpString.getAddString('arg_generate'))
         args = parser.parse_args(sys.argv[2:])
     
         credentString = 'Alias: {}, Website: {}, Username: {}, Password: {}'.format( args.alias, args.website, args.username, args.password)
@@ -53,10 +47,10 @@ class PassKeep(object):
 
     def remove(self):
         parser = argparse.ArgumentParser(
-            description='Delete your credentials has been saved')
+            description= HelpString.getRemoveString('remove_description'))
         # NOT prefixing the argument with -- means it's not optional
-        parser.add_argument('--alias', action='store')
-        parser.add_argument('--website', action='store')
+        parser.add_argument('--alias', action='store', help= HelpString.getRemoveString('arg_alias'))
+        parser.add_argument('--website', action='store', help= HelpString.getRemoveString('arg_website'))
         args = parser.parse_args(sys.argv[2:])
 
         aliasRegexElimeter = '[\w:\d.\.\/]+'
@@ -78,10 +72,10 @@ class PassKeep(object):
 
     def show(self):
         parser = argparse.ArgumentParser(
-            description='Show your credentials has been saved')
+            description= HelpString.getShowString('show_description'))
         # NOT prefixing the argument with -- means it's not optional
-        parser.add_argument('--alias', action='store')
-        parser.add_argument('--website', action='store')
+        parser.add_argument('--alias', action='store', help= HelpString.getShowString('arg_alias'))
+        parser.add_argument('--website', action='store', help= HelpString.getShowString('arg_website'))
         args = parser.parse_args(sys.argv[2:])
 
         aliasRegexElimeter = '[\w:\d.\.\/]+'
@@ -111,10 +105,10 @@ Password: {}
 
     def generate(self):
         parser = argparse.ArgumentParser(
-            description='Generate custom username/password')
+            description= HelpString.getGenerateString('generate_description'))
         # NOT any arguments
-        parser.add_argument('--count', action='store', default=8, type=int, help='Set character count')
-        parser.add_argument('--charset', action='store', help='Set specific charset')
+        parser.add_argument('--count', action='store', default=8, type=int, help= HelpString.getGenerateString('arg_count'))
+        parser.add_argument('--charset', action='store', help= HelpString.getGenerateString('arg_charset'))
         args = parser.parse_args(sys.argv[2:])
         
         crypto=Crypto()
@@ -123,12 +117,12 @@ Password: {}
 
     def config(self):
         parser = argparse.ArgumentParser(
-            description='Set configuration variables')
+            description= HelpString.getConfigString('config_description'))
         # NOT any arguments
         group = parser.add_mutually_exclusive_group(required=True)
-        group.add_argument('--set', action='store', choices=['PUBLIC_KEY', 'SECRET_KEY','CONF_PATH'],type=str, help='Set config variables to manuplate')
-        group.add_argument('--get', action='store', help='Set value of selected configuration variable')
-        parser.add_argument('--value', action='store', help='Set value of selected configuration variable')
+        group.add_argument('--set', action='store', choices=['PUBLIC_KEY', 'SECRET_KEY','CONF_PATH'],type=str, help= HelpString.getConfigString('arg_set'))
+        group.add_argument('--get', action='store', help= HelpString.getConfigString('arg_get'))
+        parser.add_argument('--value', action='store', help= HelpString.getConfigString('arg_value'))
         args = parser.parse_args(sys.argv[2:])
         
         config=Config()
