@@ -1,13 +1,14 @@
-from cryptography.fernet import Fernet
-
 import random
 import string
 
+from cryptography.fernet import Fernet
+
+
 class Crypto:
-    alghoritym = 'SHA256'
-    charset = ''
-    secretKey = ''
-    publicKey = ''
+    alghoritym = "SHA256"
+    charset = ""
+    secretKey = ""
+    publicKey = ""
 
     def __init__(self):
         self.charset = string.ascii_lowercase + string.ascii_uppercase + string.digits
@@ -22,16 +23,18 @@ class Crypto:
         decrypted = f.decrypt(encrypted)
         return decrypted
 
-    def generate(self, count, charset = None):
+    def generate(self, count, charset=None):
         charDict = {
-            'lower': string.ascii_lowercase,
-            'upper': string.ascii_uppercase,
-            'alpha': string.ascii_uppercase + string.ascii_lowercase,
-            'numeric': string.digits,
-            'alphanumeric': string.ascii_lowercase + string.ascii_uppercase + string.digits
+            "lower": string.ascii_lowercase,
+            "upper": string.ascii_uppercase,
+            "alpha": string.ascii_uppercase + string.ascii_lowercase,
+            "numeric": string.digits,
+            "alphanumeric": string.ascii_lowercase
+            + string.ascii_uppercase
+            + string.digits,
         }
         if charset is not None:
             self.charset = charDict.get(charset)
 
-        generatedKey = ''.join(random.choice(self.charset) for i in range(count))
+        generatedKey = "".join(random.choice(self.charset) for i in range(count))
         return generatedKey
