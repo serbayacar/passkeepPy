@@ -1,15 +1,15 @@
-from configparser import ConfigParser
 import os
+from configparser import ConfigParser
 
 
 class Config:
-    path = './config.ini'
+    path = "./config.ini"
 
     def __init__(self):
         config = ConfigParser()
-        config.add_section('main')
-        config.set('main', 'CONF_TEST', 'TEST_VALUE')
-        mode = 'r' if os.path.exists(self.path) is not False else 'w'
+        config.add_section("main")
+        config.set("main", "CONF_TEST", "TEST_VALUE")
+        mode = "r" if os.path.exists(self.path) is not False else "w"
         if os.path.exists(self.path) is not True:
             with open(self.path, mode) as f:
                 config.write(f)
@@ -19,7 +19,7 @@ class Config:
         config = ConfigParser()
         config.read(self.path)
         config.set(section, key, value)
-        with open('config.ini', 'w') as f:
+        with open("config.ini", "w") as f:
             config.write(f)
             f.close()
         return
