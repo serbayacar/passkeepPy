@@ -13,8 +13,10 @@ from src.modules.config import Config
 
 
 class PassKeep(object):
+    config: None
 
     def __init__(self):
+        self.config = Config()
         parser = argparse.ArgumentParser(
             description=HelpString.getMainString('main_description'),
             usage=HelpString.getMainString('help_usage'))
@@ -44,7 +46,8 @@ class PassKeep(object):
 
         credentString = 'Alias: {}, Website: {}, Username: {}, Password: {}'.format(
             args.alias, args.website, args.username, args.password)
-        filePointer = File('./credentials.txt')
+
+        filePointer = File(self.config.getConfig('main', 'credentials_path'))
         filePointer.write(credentString)
         pass
 
@@ -67,13 +70,11 @@ class PassKeep(object):
         regexString = r'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)'.format(
             aliasRegexElimeter, websiteRegexElimeter)
 
-        filePointer = File('./credentials.txt')
+        filePointer = File(self.config.getConfig('main', 'credentials_path'))
         data = filePointer.read()
 
         credent = re.sub(regexString, '', data)
         filePointer.reset(credent)
-        print(credent)
-        print('Removing, alias=%s' % args.alias)
 
     def show(self):
         parser = argparse.ArgumentParser(
@@ -94,11 +95,11 @@ class PassKeep(object):
         regexString = r'Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)'.format(
             aliasRegexElimeter, websiteRegexElimeter)
 
-        filePointer = File('./credentials.txt')
+        filePointer = File(self.config.getConfig('main', 'credentials_path'))
         data = filePointer.read()
         credent = re.match(regexString, data)
         if credent is not None:
-            print(''' 
+            print('''
 *********************************
 Alias: {}
 Website: {}

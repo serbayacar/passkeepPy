@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 import os
 
+
 class Config:
     path = './config.ini'
 
@@ -8,15 +9,13 @@ class Config:
         config = ConfigParser()
         config.add_section('main')
         config.set('main', 'CONF_TEST', 'TEST_VALUE')
-        print(os.path.exists(self.path) )
         mode = 'r' if os.path.exists(self.path) is not False else 'w'
-        print(mode)
         if os.path.exists(self.path) is not True:
-            with open(self.path, mode) as f: 
+            with open(self.path, mode) as f:
                 config.write(f)
                 f.close()
 
-    def setConfig(self,section, key, value):
+    def setConfig(self, section, key, value):
         config = ConfigParser()
         config.read(self.path)
         config.set(section, key, value)
@@ -32,4 +31,4 @@ class Config:
             value = config.get(section, key)
             return value
         except:
-            print("Configuration key notfound ({} : {})".format(section,key))
+            print("Configuration key notfound ({} : {})".format(section, key))
