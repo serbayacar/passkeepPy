@@ -10,6 +10,9 @@ class File:
         abs_file_path = os.path.join(script_dir, "../..", path)
         self.path = abs_file_path
 
+    def getPath(self):
+        return self.path
+
     def write(self, data, permission="a"):
         file = open(self.path, permission)
         file.write(data + "\n")

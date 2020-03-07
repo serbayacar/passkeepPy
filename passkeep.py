@@ -8,6 +8,7 @@ from src.configs.helpstrings import HelpString
 from src.modules.config import Config
 from src.modules.crypto import Crypto
 from src.modules.file import File
+from src.modules.xml import XML
 
 
 class PassKeep(object):
@@ -61,12 +62,10 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        credentString = "Alias: {}, Website: {}, Username: {}, Password: {}".format(
-            args.alias, args.website, args.username, args.password
-        )
-
-        filePointer = File(self.config.getConfig("main", "credentials_path"))
-        filePointer.write(credentString)
+        xmlPointer = XML()
+        xmlPointer.insertRecord(
+            args.alias, args.website, args.username, args.password)
+        xmlPointer.writeXML()
         pass
 
     def remove(self):
