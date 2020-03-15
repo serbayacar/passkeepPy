@@ -20,6 +20,8 @@ class XML:
 
     def insertRecord(self, aliasVal, websiteVal, usernameVal, passwordVal):
         recordElement = ETREE.Element("Record")
+        recordElement.set('name', aliasVal)
+        recordElement.set('website', websiteVal)
 
         aliasElement = ETREE.SubElement(
             recordElement,  "Alias").text = str(aliasVal)
@@ -34,6 +36,26 @@ class XML:
             recordElement,  "Password").text = str(passwordVal)
 
         self.tree.insert(1, recordElement)
+        return
+
+    def findRecord(self, aliasVal, websiteVal):
+        if aliasVal is not None:
+            query = ".//Record[@name='{}']".format(str(aliasVal))
+        if websiteVal is not None:
+            query = ".//Record[@website='{}']".format(str(websiteVal))
+
+        # searchElement = self.tree.findall(query)
+        searchElement = self.tree.find(query)
+        self.tree.remove(searchElement)
+        self.writeXML()
+        # for item in searchElement:
+
+        #     print(item.getchildren())
+        return
+
+    def dumpTree(self):
+        tree = ETREE.dump(self.tree)
+        print(tree)
         return
 
     def writeXML(self):
