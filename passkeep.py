@@ -81,8 +81,9 @@ class PassKeep(object):
         args = parser.parse_args(sys.argv[2:])
 
         xmlPointer = XML()
-        record = xmlPointer.findRecord(
+        record = xmlPointer.removeRecord(
             args.alias, args.website)
+        xmlPointer.writeXML()
 
     def show(self):
         parser = argparse.ArgumentParser(

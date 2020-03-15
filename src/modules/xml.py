@@ -38,19 +38,14 @@ class XML:
         self.tree.insert(1, recordElement)
         return
 
-    def findRecord(self, aliasVal, websiteVal):
+    def removeRecord(self, aliasVal, websiteVal):
         if aliasVal is not None:
             query = ".//Record[@name='{}']".format(str(aliasVal))
         if websiteVal is not None:
             query = ".//Record[@website='{}']".format(str(websiteVal))
 
-        # searchElement = self.tree.findall(query)
         searchElement = self.tree.find(query)
         self.tree.remove(searchElement)
-        self.writeXML()
-        # for item in searchElement:
-
-        #     print(item.getchildren())
         return
 
     def dumpTree(self):
