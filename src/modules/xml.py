@@ -49,8 +49,8 @@ class XML:
         if websiteVal is not None:
             query = ".//Record[@website='{}']".format(str(websiteVal))
 
-        searchElement = self.tree.find(query)
-        return searchElement
+        element = self.tree.find(query)
+        return element
 
     def dumpTree(self):
         tree = ETREE.dump(self.tree)
