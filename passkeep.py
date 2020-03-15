@@ -97,21 +97,11 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        aliasRegexElimeter = "[\w:\d.\.\/]+"
-        websiteRegexElimeter = "[\w:.\/]+"
-        if args.alias is not None:
-            aliasRegexElimeter = args.alias
-        if args.website is not None:
-            websiteRegexElimeter = args.website
+        xmlPointer = XML()
+        element = xmlPointer.findRecord(
+            args.alias, args.website)
 
-        regexString = r"Alias: (?P<alias>{}), Website: (?P<website>{}), Username: (?P<username>[\w:.\/@]+), Password: (?P<password>[\w:\d.\.\/]+)".format(
-            aliasRegexElimeter, websiteRegexElimeter
-        )
-
-        filePointer = File(self.config.getConfig("main", "credentials_path"))
-        data = filePointer.read()
-        credent = re.match(regexString, data)
-        if credent is not None:
+        if element is not None:
             print(
                 """
 *********************************
@@ -120,11 +110,11 @@ Website: {}
 Username: {}
 Password: {}
 *********************************
-                  """.format(
-                    credent.group("alias"),
-                    credent.group("website"),
-                    credent.group("username"),
-                    credent.group("password"),
+                """.format(
+                    element.find("Alias").text,
+                    element.find("Website").text,
+                    element.find("Username").text,
+                    element.find("Password").text
                 )
             )
         else:
