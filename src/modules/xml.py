@@ -39,14 +39,18 @@ class XML:
         return
 
     def removeRecord(self, aliasVal, websiteVal):
+        element = self.findRecord(aliasVal, websiteVal)
+        self.tree.remove(element)
+        return
+
+    def findRecord(self, aliasVal, websiteVal):
         if aliasVal is not None:
             query = ".//Record[@name='{}']".format(str(aliasVal))
         if websiteVal is not None:
             query = ".//Record[@website='{}']".format(str(websiteVal))
 
         searchElement = self.tree.find(query)
-        self.tree.remove(searchElement)
-        return
+        return searchElement
 
     def dumpTree(self):
         tree = ETREE.dump(self.tree)
