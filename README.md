@@ -7,6 +7,8 @@ A CLI application for keeping your credentials on local!
 [![style](https://img.shields.io/badge/style-black-black)](https://github.com/psf/black) 
 [![style](https://img.shields.io/badge/style-isort-lightgrey)](https://github.com/timothycrosley/isort) 
 [![style](https://img.shields.io/badge/style-unimport-green)](https://github.com/hakancelik96/unimport) 
+[![release](https://img.shields.io/github/v/release/serbayacar/passkeepPy)](https://github.com/serbayacar/passkeepPy/releases/tag/v1.0.1) 
+
 
 ## Installation
 
