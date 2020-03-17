@@ -3,10 +3,12 @@
 A CLI application for keeping your credentials on local!
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![style](https://img.shields.io/badge/style-black-black)](https://github.com/psf/black) 
 [![style](https://img.shields.io/badge/style-isort-lightgrey)](https://github.com/timothycrosley/isort) 
-[![style](https://img.shields.io/badge/style-unimport-green)](https://github.com/hakancelik96/unimport) 
+[![style](https://img.shields.io/badge/style-unimport-green)](https://github.com/hakancelik96/unimport)
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![release](https://img.shields.io/github/v/release/serbayacar/passkeepPy)](https://github.com/serbayacar/passkeepPy/releases/tag/v1.0.1) 
 
 ## Installation
 
