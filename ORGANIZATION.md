@@ -12,6 +12,9 @@
     │
     ├── passkeep.py        <- Executable program source
     │
+    ├── credentials.xml    <- Credents keep in this file
+    │
+    │
     ├── requirement.txt    <- Python dependencies files
     │   
     ├── .gitignore         <- Ignored Git Files
