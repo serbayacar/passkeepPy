@@ -7,6 +7,8 @@
     │ 
     ├── src
     │   ├── modules        <- Modules used in the project are kept
+    │   ├── configs        <- Configuration scripts are used 
+    │
     │
     ├── passkeep.py        <- Executable program source
     │
