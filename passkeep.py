@@ -17,8 +17,8 @@ class PassKeep(object):
     def __init__(self):
         self.config = Config()
         parser = argparse.ArgumentParser(
-            description=HelpString.getMainString("main_description"),
-            usage=HelpString.getMainString("help_usage"),
+            description=HelpString.get_main_string("main_description"),
+            usage=HelpString.get_main_string("help_usage"),
         )
         parser.add_argument("command", help="Subcommand to run")
         args = parser.parse_args(sys.argv[1:2])
@@ -30,99 +30,93 @@ class PassKeep(object):
 
     def add(self):
         parser = argparse.ArgumentParser(
-            description=HelpString.getMainString("add_description")
+            description=HelpString.get_main_string("add_description")
         )
         parser.add_argument(
             "--alias",
             required=True,
             action="store",
-            help=HelpString.getAddString("arg_alias"),
+            help=HelpString.get_add_string("arg_alias"),
         )
         parser.add_argument(
             "--website",
             required=True,
             action="store",
-            help=HelpString.getAddString("arg_website"),
+            help=HelpString.get_add_string("arg_website"),
         )
         parser.add_argument(
             "--username",
             required=True,
             action="store",
-            help=HelpString.getAddString("arg_username"),
+            help=HelpString.get_add_string("arg_username"),
         )
         group = parser.add_mutually_exclusive_group(required=True)
         group.add_argument(
-            "--password", action="store", help=HelpString.getAddString("arg_password")
+            "--password", action="store", help=HelpString.get_add_string("arg_password")
         )
         group.add_argument(
             "-g",
             action="store_true",
             default=False,
-            help=HelpString.getAddString("arg_generate"),
+            help=HelpString.get_add_string("arg_generate"),
         )
         args = parser.parse_args(sys.argv[2:])
 
         xmlPointer = XML()
-        xmlPointer.insertRecord(
-            args.alias, args.website, args.username, args.password)
-        xmlPointer.writeXML()
+        xmlPointer.insert_record(args.alias, args.website, args.username, args.password)
+        xmlPointer.write_xml()
         pass
 
     def remove(self):
         parser = argparse.ArgumentParser(
-            description=HelpString.getRemoveString("remove_description")
+            description=HelpString.get_remove_string("remove_description")
         )
         parser.add_argument(
-            "--alias", action="store", help=HelpString.getRemoveString("arg_alias")
+            "--alias", action="store", help=HelpString.get_remove_string("arg_alias")
         )
         parser.add_argument(
-            "--website", action="store", help=HelpString.getRemoveString("arg_website")
+            "--website",
+            action="store",
+            help=HelpString.get_remove_string("arg_website"),
         )
         args = parser.parse_args(sys.argv[2:])
 
         xmlPointer = XML()
-        record = xmlPointer.removeRecord(
-            args.alias, args.website)
-        xmlPointer.writeXML()
+        record = xmlPointer.remove_record(args.alias, args.website)
+        xmlPointer.write_xml()
 
     def show(self):
         parser = argparse.ArgumentParser(
-            description=HelpString.getShowString("show_description")
+            description=HelpString.get_show_string("show_description")
         )
         parser.add_argument(
-            "--alias", action="store", help=HelpString.getShowString("arg_alias")
+            "--alias", action="store", help=HelpString.get_show_string("arg_alias")
         )
         parser.add_argument(
-            "--website", action="store", help=HelpString.getShowString("arg_website")
+            "--website", action="store", help=HelpString.get_show_string("arg_website")
         )
         args = parser.parse_args(sys.argv[2:])
 
         xmlPointer = XML()
-        element = xmlPointer.findRecord(
-            args.alias, args.website)
+        element = xmlPointer.find_record(args.alias, args.website)
 
         if element is not None:
-            print(
-                """
-*********************************
-Alias: {}
-Website: {}
-Username: {}
-Password: {}
-*********************************
-                """.format(
-                    element.find("Alias").text,
-                    element.find("Website").text,
-                    element.find("Username").text,
-                    element.find("Password").text
-                )
-            )
+            alias_text = element.find("Alias").text
+            website_text = element.find("Website").text
+            username_text = element.find("Username").text
+            password_text = element.find("Password").text
+            print("*********************************")
+            print(f"Alias: {alias_text}")
+            print(f"Website: {website_text}")
+            print(f"Username: {username_text}")
+            print(f"Password: {password_text}")
+            print("*********************************")
         else:
-            print("Searched credential is not found")
+            print("Searched credential is not found!")
 
     def generate(self):
         parser = argparse.ArgumentParser(
-            description=HelpString.getGenerateString("generate_description")
+            description=HelpString.get_generate_string("generate_description")
         )
         # NOT any arguments
         parser.add_argument(
@@ -130,22 +124,22 @@ Password: {}
             action="store",
             default=8,
             type=int,
-            help=HelpString.getGenerateString("arg_count"),
+            help=HelpString.get_generate_string("arg_count"),
         )
         parser.add_argument(
             "--charset",
             action="store",
-            help=HelpString.getGenerateString("arg_charset"),
+            help=HelpString.get_generate_string("arg_charset"),
         )
         args = parser.parse_args(sys.argv[2:])
 
         crypto = Crypto()
         generatedKey = crypto.generate(args.count, args.charset)
-        print("Generated PassKey : %s" % generatedKey)
+        print(f"Generated PassKey : {generatedKey}")
 
     def config(self):
         parser = argparse.ArgumentParser(
-            description=HelpString.getConfigString("config_description")
+            description=HelpString.get_config_string("config_description")
         )
         # NOT any arguments
         group = parser.add_mutually_exclusive_group(required=True)
@@ -154,13 +148,13 @@ Password: {}
             action="store",
             choices=["PUBLIC_KEY", "SECRET_KEY", "CONF_PATH"],
             type=str,
-            help=HelpString.getConfigString("arg_set"),
+            help=HelpString.get_config_string("arg_set"),
         )
         group.add_argument(
-            "--get", action="store", help=HelpString.getConfigString("arg_get")
+            "--get", action="store", help=HelpString.get_config_string("arg_get")
         )
         parser.add_argument(
-            "--value", action="store", help=HelpString.getConfigString("arg_value")
+            "--value", action="store", help=HelpString.get_config_string("arg_value")
         )
         args = parser.parse_args(sys.argv[2:])
 
@@ -173,7 +167,7 @@ Password: {}
 
         if args.get is not None:
             value = config.getConfig("main", args.get)
-            print("Configuration key found ({} : {})".format(args.get, value))
+            print(f"Configuration key found ({args.get} : {value})")
         pass
 
 

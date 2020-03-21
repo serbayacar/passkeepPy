@@ -1,8 +1,9 @@
 import json
+import xml.etree.ElementTree as ETREE
+
+import xmltodict
 
 from src.modules.file import File
-import xmltodict
-import xml.etree.ElementTree as ETREE
 
 
 class XML:
@@ -10,65 +11,64 @@ class XML:
     tree = None
 
     def __init__(self):
-        filePointer = File(self.path)
-        tree = ETREE.parse(filePointer.getPath())
+        fp = File(self.path)
+        tree = ETREE.parse(fp.getPath())
         self.tree = tree.getroot()
         return None
 
-    def getTree(self):
+    def get_tree(self):
         return self.tree
 
-    def insertRecord(self, aliasVal, websiteVal, usernameVal, passwordVal):
-        recordElement = ETREE.Element("Record")
-        recordElement.set('name', aliasVal)
-        recordElement.set('website', websiteVal)
+    def insert_record(self, alias_val, website_val, username_val, password_val):
+        record_element = ETREE.Element("Record")
+        record_element.set("name", alias_val)
+        record_element.set("website", website_val)
 
-        aliasElement = ETREE.SubElement(
-            recordElement,  "Alias").text = str(aliasVal)
+        aliasElement = ETREE.SubElement(record_element, "Alias").text = str(
+            alias_val)
 
-        websiteElement = ETREE.SubElement(
-            recordElement,  "Website").text = str(websiteVal)
+        websiteElement = ETREE.SubElement(record_element, "Website").text = str(
+            website_val)
 
-        usernameElement = ETREE.SubElement(
-            recordElement,  "Username").text = str(usernameVal)
+        usernameElement = ETREE.SubElement(record_element, "Username").text = str(
+            username_val)
 
-        passwordElement = ETREE.SubElement(
-            recordElement,  "Password").text = str(passwordVal)
+        passwordElement = ETREE.SubElement(record_element, "Password").text = str(
+            password_val)
 
-        self.tree.insert(1, recordElement)
+        self.tree.insert(1, record_element)
         return
 
-    def removeRecord(self, aliasVal, websiteVal):
-        element = self.findRecord(aliasVal, websiteVal)
+    def remove_record(self, alias_val, website_val):
+        element = self.find_record(alias_val, website_val)
         self.tree.remove(element)
         return
 
-    def findRecord(self, aliasVal, websiteVal):
-        if aliasVal is not None:
-            query = ".//Record[@name='{}']".format(str(aliasVal))
-        if websiteVal is not None:
-            query = ".//Record[@website='{}']".format(str(websiteVal))
+    def find_record(self, alias_val, website_val):
+        if alias_val is not None:
+            query = f".//Record[@name='{str(alias_val)}']"
+        if website_val is not None:
+            query = f".//Record[@website='{str(website_val)}']"
 
         element = self.tree.find(query)
         return element
 
-    def dumpTree(self):
+    def dump_tree(self):
         tree = ETREE.dump(self.tree)
         print(tree)
         return
 
-    def writeXML(self):
+    def write_xml(self):
         tree = ETREE.ElementTree(self.tree)
-        tree.write(self.path, xml_declaration=True,
-                   encoding='utf-8', method="xml")
+        tree.write(self.path, xml_declaration=True, encoding="utf-8", method="xml")
         return
 
     @staticmethod
-    def toXML(jsonObj):
-        xmlString = xmltodict.unparse(jsonObj, pretty=True)
-        return xmlString
+    def to_xml(json_obj):
+        xml_string = xmltodict.unparse(json_obj, pretty=True)
+        return xml_string
 
     @staticmethod
-    def toJson(xmlString):
-        jsonString = json.dumps(xmltodict.parse(xmlString), indent=4)
-        return jsonString
+    def to_json(xml_string):
+        json_string = json.dumps(xmltodict.parse(xml_string), indent=4)
+        return json_string

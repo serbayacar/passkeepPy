@@ -2,14 +2,12 @@ class HelpString:
     main = {
         "main_description": "Keep your credentials on local with PassKeepPy",
         "help_usage": """passkeep <command> [<args>]
-
-The most commonly used git commands are:
-add       Add new credentials to saved as encrypted
-remove    Delete your credentials has been saved
-show      Show your credentials has been saved
-generate  Generate custom username/password
-config    Set program configuration
-                    """,
+        The most commonly used git commands are:
+        add       Add new credentials to saved as encrypted
+        remove    Delete your credentials has been saved
+        show      Show your credentials has been saved
+        generate  Generate custom username/password
+        config    Set program configuration""",
     }
 
     add = {
@@ -52,25 +50,25 @@ config    Set program configuration
     }
 
     @staticmethod
-    def getMainString(argName):
-        return HelpString.main.get(argName)
+    def get_main_string(arg_name):
+        return HelpString.main.get(arg_name)
 
     @staticmethod
-    def getAddString(argName):
-        return HelpString.add.get(argName)
+    def get_add_string(arg_name):
+        return HelpString.add.get(arg_name)
 
     @staticmethod
-    def getRemoveString(argName):
-        return HelpString.remove.get(argName)
+    def get_remove_string(arg_name):
+        return HelpString.remove.get(arg_name)
 
     @staticmethod
-    def getShowString(argName):
-        return HelpString.show.get(argName)
+    def get_show_string(arg_name):
+        return HelpString.show.get(arg_name)
 
     @staticmethod
-    def getGenerateString(argName):
-        return HelpString.generate.get(argName)
+    def get_generate_string(arg_name):
+        return HelpString.generate.get(arg_name)
 
     @staticmethod
-    def getConfigString(argName):
-        return HelpString.config.get(argName)
+    def get_config_string(arg_name):
+        return HelpString.config.get(arg_name)
