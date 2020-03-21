@@ -5,21 +5,22 @@ from cryptography.fernet import Fernet
 
 
 class Crypto:
-    alghoritym = "SHA256"
+    algorithm = "SHA256"
     charset = ""
-    secretKey = ""
-    publicKey = ""
+    secret_key = ""
+    public_key = ""
 
     def __init__(self):
-        self.charset = string.ascii_lowercase + string.ascii_uppercase + string.digits
+        self.charset = string.ascii_lowercase + string.ascii_uppercase \
+        + string.digits
 
     def encryptData(self, data):
-        f = Fernet(self.secretKey)
+        f = Fernet(self.secret_key)
         encrypted = f.encrypt(message)
         return encrypted
 
     def decryptData(self, encrypted):
-        f = Fernet(self.secretKey)
+        f = Fernet(self.secret_key)
         decrypted = f.decrypt(encrypted)
         return decrypted
 
@@ -36,5 +37,5 @@ class Crypto:
         if charset is not None:
             self.charset = charDict.get(charset)
 
-        generatedKey = "".join(random.choice(self.charset) for i in range(count))
-        return generatedKey
+        generated_key = "".join(random.choice(self.charset) for i in range(count))
+        return generated_key

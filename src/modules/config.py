@@ -31,4 +31,4 @@ class Config:
             value = config.get(section, key)
             return value
         except:
-            print("Configuration key notfound ({} : {})".format(section, key))
+            print(f"Configuration key notfound ({section} : {key})!")
