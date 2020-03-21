@@ -1,8 +1,10 @@
 class HelpString:
     main = {
         "main_description": "Keep your credentials on local with PassKeepPy",
-        "help_usage": """passkeep <command> [<args>]
-        The most commonly used git commands are:
+        "help_usage": """
+        passkeep <command> [<args>]
+        
+        Commands are able to use :
         add       Add new credentials to saved as encrypted
         remove    Delete your credentials has been saved
         show      Show your credentials has been saved
