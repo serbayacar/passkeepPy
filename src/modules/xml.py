@@ -1,4 +1,3 @@
-import json
 import xml.etree.ElementTree as ETREE
 
 from src.modules.file import File
@@ -17,37 +16,15 @@ class XML:
     def get_tree(self):
         return self.tree
 
-    def insert_record(self, alias_val, website_val, username_val, password_val):
-        record_element = ETREE.Element("Record")
-        record_element.set("name", alias_val)
-        record_element.set("website", website_val)
+    def insert_element_to_tree(self, element):
+        self.tree.insert(1, element)
+        return self.tree
 
-        aliasElement = ETREE.SubElement(record_element, "Alias").text = str(
-            alias_val)
-
-        websiteElement = ETREE.SubElement(record_element, "Website").text = str(
-            website_val)
-
-        usernameElement = ETREE.SubElement(record_element, "Username").text = str(
-            username_val)
-
-        passwordElement = ETREE.SubElement(record_element, "Password").text = str(
-            password_val)
-
-        self.tree.insert(1, record_element)
-        return
-
-    def remove_record(self, alias_val, website_val):
-        element = self.find_record(alias_val, website_val)
+    def remove_record(self, element):
         self.tree.remove(element)
         return
 
-    def find_record(self, alias_val, website_val):
-        if alias_val is not None:
-            query = f".//Record[@name='{str(alias_val)}']"
-        if website_val is not None:
-            query = f".//Record[@website='{str(website_val)}']"
-
+    def find_record(self, query):
         element = self.tree.find(query)
         return element
 
@@ -60,3 +37,23 @@ class XML:
         tree = ETREE.ElementTree(self.tree)
         tree.write(self.path, xml_declaration=True, encoding="utf-8", method="xml")
         return
+
+    @staticmethod
+    def create_element(element_name):
+        element = ETREE.Element(element_name)
+        return element
+
+    @staticmethod
+    def create_sub_element(element, child_element):
+        sub_element = ETREE.SubElement(element, child_element)
+        return sub_element
+
+    @staticmethod
+    def set_element_text(element, value):
+        element.text = str(value)
+        return element
+    
+    @staticmethod
+    def set_element_attr(element, attribute, value):
+        element.set(attribute, value)
+        return element

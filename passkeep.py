@@ -5,17 +5,14 @@ import re
 import sys
 
 from src.configs.helpstrings import HelpString
-from src.modules.config import Config
-from src.modules.crypto import Crypto
-from src.modules.file import File
 from src.modules.xml import XML
+from src.classes.credents import Credentials
 
 
 class PassKeep(object):
     config: None
 
     def __init__(self):
-        self.config = Config()
         parser = argparse.ArgumentParser(
             description=HelpString.get_main_string("main_description"),
             usage=HelpString.get_main_string("help_usage"),
@@ -62,9 +59,8 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        xmlPointer = XML()
-        xmlPointer.insert_record(args.alias, args.website, args.username, args.password)
-        xmlPointer.write_xml()
+        credent_object = Credentials(args.alias, args.website)
+        credent_object.insert_record(args.alias, args.website, args.username, args.password)
         pass
 
     def remove(self):
@@ -81,9 +77,9 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        xmlPointer = XML()
-        record = xmlPointer.remove_record(args.alias, args.website)
-        xmlPointer.write_xml()
+        credent_object = Credentials(args.alias, args.website)
+        record = credent_object.remove_record(args.alias, args.website)
+        pass
 
     def show(self):
         parser = argparse.ArgumentParser(
@@ -97,22 +93,11 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        xmlPointer = XML()
-        element = xmlPointer.find_record(args.alias, args.website)
+        credent_object = Credentials(args.alias, args.website)
+        credent = credent_object.find_record(args.alias, args.website)
+        credent_object.show(credent)
+        pass
 
-        if element is not None:
-            alias_text = element.find("Alias").text
-            website_text = element.find("Website").text
-            username_text = element.find("Username").text
-            password_text = element.find("Password").text
-            print("*********************************")
-            print(f"Alias: {alias_text}")
-            print(f"Website: {website_text}")
-            print(f"Username: {username_text}")
-            print(f"Password: {password_text}")
-            print("*********************************")
-        else:
-            print("Searched credential is not found!")
 
     def generate(self):
         parser = argparse.ArgumentParser(
