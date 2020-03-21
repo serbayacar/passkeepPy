@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
-import re
 import sys
 
 from src.configs.helpstrings import HelpString
-from src.modules.xml import XML
 from src.classes.credents import Credentials
 
 
