@@ -5,10 +5,10 @@ import sys
 
 from src.configs.helpstrings import HelpString
 from src.classes.credents import Credentials
+from src.classes.password import Password
 
 
 class PassKeep(object):
-    config: None
 
     def __init__(self):
         parser = argparse.ArgumentParser(
@@ -116,9 +116,8 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        crypto = Crypto()
-        generatedKey = crypto.generate(args.count, args.charset)
-        print(f"Generated PassKey : {generatedKey}")
+        password = Password(args.count, args.charset).generate()
+        print(f"Generated PassKey : {password}")
 
     def config(self):
         parser = argparse.ArgumentParser(

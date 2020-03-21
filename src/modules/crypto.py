@@ -6,7 +6,6 @@ from cryptography.fernet import Fernet
 
 class Crypto:
     algorithm = "SHA256"
-    charset = ""
     secret_key = ""
     public_key = ""
 
@@ -24,7 +23,8 @@ class Crypto:
         decrypted = f.decrypt(encrypted)
         return decrypted
 
-    def generate(self, count, charset=None):
+    @staticmethod
+    def generate(count, charset=None):
         charDict = {
             "lower": string.ascii_lowercase,
             "upper": string.ascii_uppercase,
@@ -35,7 +35,9 @@ class Crypto:
             + string.digits,
         }
         if charset is not None:
-            self.charset = charDict.get(charset)
+            charset = charDict.get(charset)
 
-        generated_key = "".join(random.choice(self.charset) for i in range(count))
+        generated_key = "".join(random.choice(charset) for i in range(count))
+        print(generated_key);
+        # exit(1);
         return generated_key
