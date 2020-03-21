@@ -1,8 +1,6 @@
 import json
 import xml.etree.ElementTree as ETREE
 
-import xmltodict
-
 from src.modules.file import File
 
 
@@ -62,13 +60,3 @@ class XML:
         tree = ETREE.ElementTree(self.tree)
         tree.write(self.path, xml_declaration=True, encoding="utf-8", method="xml")
         return
-
-    @staticmethod
-    def to_xml(json_obj):
-        xml_string = xmltodict.unparse(json_obj, pretty=True)
-        return xml_string
-
-    @staticmethod
-    def to_json(xml_string):
-        json_string = json.dumps(xmltodict.parse(xml_string), indent=4)
-        return json_string
