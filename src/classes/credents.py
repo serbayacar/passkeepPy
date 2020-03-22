@@ -11,6 +11,10 @@ class Credentials():
         self.website = website_value
         self.xmlTree = XML()
 
+    def isDuplicate(self, alias_value, website_value):
+        element = self.find_record(alias_value, website_value)
+        return True if element is not None else False
+
     def find_record(self, alias_val, website_val):
         if alias_val is not None:
             query = f".//Record[@name='{str(alias_val)}']"
@@ -20,6 +24,9 @@ class Credentials():
         return element
 
     def insert_record(self, alias_val, website_val, username_val, password_val):
+        if self.isDuplicate(alias_val, website_val) is True :
+            raise Warning('Credentials you want to keep are duplicate')
+            
         record_element = XML.create_element('Record')
         XML.set_element_attr(record_element, 'name', alias_val)
         XML.set_element_attr(record_element, 'website', website_val)
@@ -41,6 +48,9 @@ class Credentials():
         return True
 
     def remove_record(self, alias_val, website_val):
+        if self.isDuplicate(alias_val, website_val) is False :
+            raise Warning('Credentials you want to remove are not exist')
+
         element = self.find_record(alias_val, website_val)
         tree = self.xmlTree.remove_record(element)
         self.xmlTree.write_xml()
@@ -59,6 +69,6 @@ class Credentials():
             print(f"Password: {password_text}")
             print("*********************************")
         else:
-            print("Searched credential is not found!")
+            raise Warning("Credentials you want to show is not found!")
 
 

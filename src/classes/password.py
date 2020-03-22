@@ -16,3 +16,6 @@ class Password():
         password = Crypto.generate(self.count, self.charset)
         return password
 
+    def show(password):
+         print(f"Generated PassKey : {password}")
+
