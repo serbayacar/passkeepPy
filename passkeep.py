@@ -60,10 +60,10 @@ class PassKeep(object):
         try:
             credent_object = Credentials(args.alias, args.website)
             credent_object.insert_record(args.alias, args.website, args.username, args.password)
-
         except Warning as war:
             print(war)
             exit(1)
+
         pass
 
     def remove(self):
@@ -83,11 +83,11 @@ class PassKeep(object):
         try:
             credent_object = Credentials(args.alias, args.website)
             record = credent_object.remove_record(args.alias, args.website)
-            pass
         except Warning as war:
             print(war)
             exit(1)
-            pass
+
+        pass
 
     def show(self):
         parser = argparse.ArgumentParser(
@@ -105,10 +105,10 @@ class PassKeep(object):
             credent_object = Credentials(args.alias, args.website)
             credent = credent_object.find_record(args.alias, args.website)
             credent_object.show(credent)
-
         except Warning as war:
             print(war)
             exit(1)
+
         pass
         
     def generate(self):
@@ -132,13 +132,13 @@ class PassKeep(object):
 
         try:
             password = Password(args.count, args.charset).generate()
-            pass
         except Warning as war:
-            print(war.message)
-            pass
+            print(war)
+            exit(1)
         finally:
             password.show(password)
-            pass
+
+        pass
 
     def config(self):
         parser = argparse.ArgumentParser(
