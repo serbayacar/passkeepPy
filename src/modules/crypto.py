@@ -38,6 +38,4 @@ class Crypto:
             charset = charDict.get(charset)
 
         generated_key = "".join(random.choice(charset) for i in range(count))
-        print(generated_key);
-        # exit(1);
         return generated_key
