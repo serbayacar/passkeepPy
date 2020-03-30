@@ -58,9 +58,13 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
+        password_val = args.password
+        if args.g is not False:
+            password_val = Password().generate()
+            
         try:
             credent_object = Credentials(args.alias, args.website)
-            credent_object.insert_record(args.alias, args.website, args.username, args.password)
+            credent_object.insert_record(args.alias, args.website, args.username, password_val)
         except Warning as war:
             print(war)
             exit(1)

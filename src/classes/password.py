@@ -5,7 +5,7 @@ class Password():
     count = 8
     charset = 'alphanumeric'
 
-    def __init__(self, count, charset):
+    def __init__(self, count = None, charset = None):
         # self.count =  6 if count is not None else int(count)
         # self.charset = 'alphanumeric' if charset is not None else str(charset)
         self.count =  int(count) if count is not None else 8
