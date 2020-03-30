@@ -3,12 +3,14 @@ from configparser import ConfigParser
 
 
 class Config:
-    path = "./config.ini"
 
-    def __init__(self):
+    def __init__(self, path, section):
+        self.section = section
+        self.path = path
+
         config = ConfigParser()
-        config.add_section("main")
-        config.set("main", "CONF_TEST", "TEST_VALUE")
+        config.add_section(self.section)
+        config.set(self.section, "CONF_TEST", "TEST_VALUE")
         mode = "r" if os.path.exists(self.path) is not False else "w"
         if os.path.exists(self.path) is not True:
             with open(self.path, mode) as f:
@@ -19,7 +21,7 @@ class Config:
         config = ConfigParser()
         config.read(self.path)
         config.set(section, key, value)
-        with open("config.ini", "w") as f:
+        with open(self.path, "w") as f:
             config.write(f)
             f.close()
         return
@@ -27,8 +29,5 @@ class Config:
     def getConfig(self, section, key):
         config = ConfigParser()
         config.read(self.path)
-        try:
-            value = config.get(section, key)
-            return value
-        except:
-            print(f"Configuration key notfound ({section} : {key})!")
+        value = config.get(section, key)
+        return value

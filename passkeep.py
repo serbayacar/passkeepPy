@@ -6,6 +6,7 @@ import sys
 from src.configs.helpstrings import HelpString
 from src.classes.credents import Credentials
 from src.classes.password import Password
+from src.classes.configurator import Configurator
 
 
 class PassKeep(object):
@@ -161,16 +162,25 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
-        config = Config()
+        config = Configurator()
         if args.set is not None:
             if args.value is None:
                 print("--value option is must be filled")
             else:
-                config.setConfig("main", args.set, args.value)
+                try:    
+                    config.setConfig( args.set, args.value)
+                except Warning as war:
+                    print(war)
+                    exit(1)
 
         if args.get is not None:
-            value = config.getConfig("main", args.get)
-            print(f"Configuration key found ({args.get} : {value})")
+
+            try:    
+                value = config.getConfig(args.get)
+                print(f"Configuration key found ({args.get} : {value})")
+            except Warning as war:
+                print(war)
+                exit(1)
         pass
 
 
