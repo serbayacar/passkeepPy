@@ -150,7 +150,7 @@ class PassKeep(object):
         group.add_argument(
             "--set",
             action="store",
-            choices=["PUBLIC_KEY", "SECRET_KEY", "CONF_PATH"],
+            choices=["CONF_PATH"],
             type=str,
             help=HelpString.get_config_string("arg_set"),
         )
