@@ -1,5 +1,5 @@
 from src.modules.xml import XML
-
+from src.modules.table import Table
 
 class Credentials():
     alias : None
@@ -62,12 +62,10 @@ class Credentials():
             website_text = element.find("Website").text
             username_text = element.find("Username").text
             password_text = element.find("Password").text
-            print("*********************************")
-            print(f"Alias: {alias_text}")
-            print(f"Website: {website_text}")
-            print(f"Username: {username_text}")
-            print(f"Password: {password_text}")
-            print("*********************************")
+
+            headers = ['Alias', 'Website', 'Username', 'Password']
+            texts = [ alias_text, website_text, username_text, password_text ]
+            Table.createTable(texts, headers)
         else:
             raise Warning("Credentials you want to show is not found!")
 
