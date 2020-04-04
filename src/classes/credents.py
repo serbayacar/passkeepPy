@@ -45,7 +45,7 @@ class Credentials():
 
         self.xmlTree.insert_element_to_tree(record_element)
         self.xmlTree.write_xml()
-        return True
+        return record_element
 
     def remove_record(self, alias_val, website_val):
         if self.isDuplicate(alias_val, website_val) is False :

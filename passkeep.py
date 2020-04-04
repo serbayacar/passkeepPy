@@ -63,8 +63,12 @@ class PassKeep(object):
             password_val = Password().generate()
             
         try:
+            print('\n')
             credent_object = Credentials(args.alias, args.website)
-            credent_object.insert_record(args.alias, args.website, args.username, password_val)
+            element = credent_object.insert_record(args.alias, args.website, args.username, password_val)
+            credent_object.show(element)
+            print('\n Showing credential has been created successfully \n')
+
         except Warning as war:
             print(war)
             exit(1)
@@ -86,8 +90,12 @@ class PassKeep(object):
         args = parser.parse_args(sys.argv[2:])
 
         try:
+            print('\n')
             credent_object = Credentials(args.alias, args.website)
+            credent = credent_object.find_record(args.alias, args.website)
+            credent_object.show(credent)
             record = credent_object.remove_record(args.alias, args.website)
+            print('\n Showing credential has been romoved successfully \n')
         except Warning as war:
             print(war)
             exit(1)
@@ -107,6 +115,7 @@ class PassKeep(object):
         args = parser.parse_args(sys.argv[2:])
 
         try:
+            print('\n')
             credent_object = Credentials(args.alias, args.website)
             credent = credent_object.find_record(args.alias, args.website)
             credent_object.show(credent)
@@ -136,6 +145,7 @@ class PassKeep(object):
         args = parser.parse_args(sys.argv[2:])
 
         try:
+            print('\n')
             password = Password(args.count, args.charset).generate()
         except Warning as war:
             print(war)
