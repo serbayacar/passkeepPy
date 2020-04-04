@@ -28,6 +28,10 @@ class XML:
         element = self.tree.find(query)
         return element
 
+    def findAllRecords(self, query):
+        elements = self.tree.findall(query)
+        return elements
+
     def dump_tree(self):
         tree = ETREE.dump(self.tree)
         print(tree)

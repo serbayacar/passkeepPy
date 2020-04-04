@@ -114,6 +114,14 @@ class PassKeep(object):
         )
         args = parser.parse_args(sys.argv[2:])
 
+
+        if (len(sys.argv) > 2) is False:
+            credent_object = Credentials('all', 'all')
+            elements = credent_object.find_record('all', 'all')
+            credent_object.showAll(elements)
+
+        pass
+
         try:
             print('\n')
             credent_object = Credentials(args.alias, args.website)

@@ -16,11 +16,17 @@ class Credentials():
         return True if element is not None else False
 
     def find_record(self, alias_val, website_val):
+        query= ''
         if alias_val is not None:
             query = f".//Record[@name='{str(alias_val)}']"
         if website_val is not None:
             query = f".//Record[@website='{str(website_val)}']"
+
         element = self.xmlTree.find_record(query)
+
+        if alias_val is 'all' and website_val is 'all':
+            element = self.xmlTree.findAllRecords('./Record')
+
         return element
 
     def insert_record(self, alias_val, website_val, username_val, password_val):
@@ -64,9 +70,21 @@ class Credentials():
             password_text = element.find("Password").text
 
             headers = ['Alias', 'Website', 'Username', 'Password']
-            texts = [ alias_text, website_text, username_text, password_text ]
+            texts = [ [ alias_text, website_text, username_text, password_text ] ]
             Table.createTable(texts, headers)
         else:
             raise Warning("Credentials you want to show is not found!")
 
+    def showAll(self, elements):
+        texts = []
+        for element in elements:
+            alias_text = element.find("Alias").text
+            website_text = element.find("Website").text
+            username_text = element.find("Username").text
+            password_text = element.find("Password").text
+            
+            texts.append([ alias_text, website_text, username_text, password_text ])
 
+        headers = ['Alias', 'Website', 'Username', 'Password']
+        Table.createTable(texts, headers)
+        pass
